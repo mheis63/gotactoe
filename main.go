@@ -6,17 +6,29 @@ type newGame struct {
 
 func (game *newGame) printBoard() {
 	for i := 0; i < 3; i++ {
+		// print the row numbers
+		if i == 0 {
+			println("  1   2  3")
+			println("------------")
+		}
 		for j := 0; j < 3; j++ {
-			print(game.board[i][j])
+			//print the column numbers
+			if j == 0 {
+				print(string(i+1+'0') + "| ")
+			}
+			// print the board contents
+			print(string(game.board[i][j] + '0'))
+			// print the column separator
 			if j < 2 {
 				print(" | ")
 			}
 
 		}
 		if i < 2 {
-			println("\n---------")
+			println("\n------------")
 		}
 	}
+	println("\n\n")
 }
 
 func (game *newGame) makeMove() {
@@ -36,10 +48,10 @@ func main() {
 	game.board = [3][3]int{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
 	game.printBoard()
 
-	endOfGame := false
-	for !endOfGame {
-		game.makeMove()
-		game.printBoard()
-		endOfGame = game.checkEndOfGame()
-	}
+	// endOfGame := false
+	// for !endOfGame {
+	// 	game.makeMove()
+	// 	game.printBoard()
+	// 	endOfGame = game.checkEndOfGame()
+	// }
 }
