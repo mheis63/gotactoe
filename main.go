@@ -44,8 +44,16 @@ func (game *newGame) checkEndOfGame() bool {
 	}
 
 	//check vertical win
+	for i := 0; i < 3; i++ {
+		if game.board[0][i] == game.board[1][i] && game.board[1][i] == game.board[2][i] && game.board[0][i] != "_" {
+			return true
+		}
+	}
 
 	//check diagonal win
+	if game.board[0][0] == game.board[1][1] && game.board[1][1] == game.board[2][2] && game.board[0][0] != "_" {
+		return true
+	}
 
 	return end
 }
