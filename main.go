@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 type newGame struct {
-	board [3][3]int
+	board [3][3]string
 }
 
 func (game *newGame) printBoard() {
@@ -14,16 +14,12 @@ func (game *newGame) printBoard() {
 			println("------------")
 		}
 		for j := 0; j < 3; j++ {
-			fmt.Printf("%d| ", i+1)
+			//fmt.Printf("%d| ", i+1)
 			if j == 0 {
 				print(fmt.Sprint(i+1) + "| ")
-				fmt.Printf("%d", game.board[i][j])
-				// print the board contents
-				print(fmt.Sprint(game.board[i][j]))
-				// print the column separator
 			}
+			print(fmt.Sprint(game.board[i][j]) + "  ")
 		}
-		println("\n\n")
 
 		if i < 2 {
 			println("\n------------")
@@ -35,14 +31,14 @@ func (game *newGame) printBoard() {
 func (game *newGame) makeMove() {
 	// Implement the logic for making a move
 	// For now, let's just make a dummy move
-	game.board[0][0] = 1
+	game.board[0][0] = "X"
 }
 
 func (game *newGame) checkEndOfGame() bool {
 	end := false
 	//check horizontal win
 	for i := 0; i < 3; i++ {
-		if game.board[i][0] == game.board[i][1] && game.board[i][1] == game.board[i][2] && game.board[i][0] != 0 {
+		if game.board[i][0] == game.board[i][1] && game.board[i][1] == game.board[i][2] && game.board[i][0] != "_" {
 			return true
 		}
 	}
@@ -56,7 +52,7 @@ func (game *newGame) checkEndOfGame() bool {
 
 func main() {
 	game := newGame{}
-	game.board = [3][3]int{{0, 0, 0}, {0, 0, 0}, {0, 0, 0}}
+	game.board = [3][3]string{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}}
 	game.printBoard()
 
 	// endOfGame := false
