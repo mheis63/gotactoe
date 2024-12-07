@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
 type newGame struct {
 	board [3][3]string
@@ -29,9 +34,23 @@ func (game *newGame) printBoard() {
 }
 
 func (game *newGame) makeMove() {
-	// Implement the logic for making a move
-	// For now, let's just make a dummy move
-	game.board[0][0] = "X"
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("Enter your move (X or O): ")
+	move, _ := reader.ReadString('\n')
+	move = strings.TrimSpace(move)
+
+	var row, col int
+	fmt.Print("Enter the row (1-3): ")
+	fmt.Scanf("%d", &row)
+	fmt.Print("Enter the column (1-3): ")
+	fmt.Scanf("%d", &col)
+
+	if row >= 1 && row <= 3 && col >= 1 && col <= 3 && game.board[row-1][col-1] == "_" {
+		game.board[row-1][col-1] = move
+	} else {
+		fmt.Println("Invalid move, try again.")
+		game.makeMove()
+	}
 }
 
 func (game *newGame) checkEndOfGame() bool {
@@ -63,10 +82,10 @@ func main() {
 	game.board = [3][3]string{{"_", "_", "_"}, {"_", "_", "_"}, {"_", "_", "_"}}
 	game.printBoard()
 
-	// endOfGame := false
-	// for !endOfGame {
-	// 	game.makeMove()
-	// 	game.printBoard()
-	// 	endOfGame = game.checkEndOfGame()
-	// }
+	endOfGame := false
+	for !endOfGame {
+		game.makeMove()
+		game.printBoard()
+		endOfGame = game.checkEndOfGame()
+	}
 }
